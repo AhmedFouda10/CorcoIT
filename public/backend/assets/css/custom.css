@@ -1,0 +1,11 @@
+.btn_hover:hover{
+    color: #ff1d08 !important;
+    transition: .9s ease all;
+    -webkit-transition: .9s ease all;
+    -moz-transition: .9s ease all;
+    -ms-transition: .9s ease all;
+    -o-transition: .9s ease all;
+}
+
+
+
