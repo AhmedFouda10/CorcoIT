@@ -23,6 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $categories = Category::where('parent_id', '=', 0)->get();
         $categories=$this->categoryInterface->index();
         return view('admin.category.index',compact('categories'));
     }

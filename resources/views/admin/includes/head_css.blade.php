@@ -28,8 +28,14 @@
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/vendors/bootstrap.css')}}">
 
 <!-- App css-->
+<link href="{{asset('backend/assets/css/treeview.css')}}" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/style.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/custom.css')}}">
 
-<link href="{{asset('css/treeview.css')}}" rel="stylesheet">
 </head>

@@ -68,7 +68,7 @@
     <!--script admin-->
     <script src="{{ asset('backend/assets/js/admin-script.js') }}"></script>
 
-    <script src="{{ asset('css/treeview.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/treeview.js') }}"></script>
 
 
     <script>

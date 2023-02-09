@@ -42,6 +42,26 @@ Category
                     </div>
                 @endif
 
+                <ul id="tree1">
+
+                    {{-- @foreach($categories as $category)
+
+                        <li>
+
+                            {{ $category->name }} 
+
+                            @if(count($category->childs))
+
+                                @include('manageChild',['childs' => $category->childs])
+
+                            @endif
+
+                        </li>
+
+                    @endforeach --}}
+
+                </ul>
+
 
                 <div class="table-responsive table-desi">
                     <table class="table list-digital all-package table-category " id="editableTable">
