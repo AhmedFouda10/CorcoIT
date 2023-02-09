@@ -32,29 +32,12 @@
                                 <ul class="nav nav-tabs tab-coupon" id="myTab" role="tablist">
                                     <li class="nav-item"><a class="nav-link active show" id="account-tab"
                                             data-bs-toggle="tab" href="#account" role="tab" aria-controls="account"
-                                            aria-selected="true" data-original-title="" title="">Show Category</a>
+                                            aria-selected="true" data-original-title="" title="">Show SubCategories</a>
                                     </li>
                                 </ul>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>SubCategories:</strong>
-                                        {{-- <ul id="tree1">
-                                        @foreach ($categories as $category)
-                                            <li>
-                                                {{ $category->name }}
-				                                    @if (count($category->childs))
-
-                                                <ul>
-                                                        <li>@include('manageChild',['childs' => $category->childs])</li>
-                                                </ul>
-                                                @endif
-
-                                                    
-                                            </li>
-                                        @endforeach
-                                    </ul> --}}
-
                                         <ul class="sidebar-submenu">
                                             @foreach ($categories as $category)
                                                 <li>
@@ -68,12 +51,9 @@
                                                     <ul class="sidebar-submenu">
                                                         @if (count($category->childs))
                                                             <li>
-
                                                                 @include('manageChild',['childs' => $category->childs])
                                                             </li>
                                                         @endif
-
-
                                                     </ul>
                                                 </li>
                                             @endforeach

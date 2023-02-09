@@ -39,13 +39,13 @@
                         <h6 class="fw-bold" style="font-size:.9rem;text-transform: uppercase;">{{app()->getLocale()}}</h6>
                     </a>
                     <ul class="language-dropdown onhover-show-div p-20">
-                            {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties) --}}
+                            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                                 <li class="d-block text-center">
-                                    {{-- <a class="fw-bold" style="color: #FF4C3B;font-size:1rem" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}"> --}}
-                                        {{-- {{ $properties['native'] }} --}}
+                                    <a class="fw-bold" style="color: #FF4C3B;font-size:1rem" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
                                     </a>
                                 </li>
-                            {{-- @endforeach --}}
+                            @endforeach
                     </ul>
                 </li>
                 <li class="onhover-dropdown">
@@ -133,7 +133,7 @@
                             <a href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                <i data-feather="log-out"></i>{{ __('main_trans.Logout') }}
+                                <i data-feather="log-out"></i>Logout
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

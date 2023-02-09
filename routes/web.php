@@ -17,22 +17,30 @@ use App\Http\Controllers\SubcategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){ 
+        Route::middleware('guest')->group(function(){
+            Route::get('/', function () {
+                return view('auth.login');
+            });
+        });
+        
+        
+        Auth::routes();
+        
+        Route::middleware('auth')->group(function(){
+            Route::get('home', [HomeController::class, 'index'])->name('admin.home');
+            Route::resource('category',CategoryController::class);
+            Route::resource('news',NewsController::class);
+        });
+        
 });
 
-Auth::routes();
-
-// Route::middleware('auth')->prefix('admin')->name('admin')
-Route::get('home', [HomeController::class, 'index'])->name('admin.home');
-// Route::get('subcategories/all', [SubcategoryController::class, 'all'])->name('admin.subcategories.all');
-// Route::get('subcategories/create', [SubcategoryController::class, 'create'])->name('admin.subcategories.create');
-// Route::post('subcategories/store', [SubcategoryController::class, 'store'])->name('admin.subcategories.store');
-// Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
 
 
-Route::resource('category',CategoryController::class);
-Route::resource('news',NewsController::class);
-Route::get('news/destroy/{id}',[NewsController::class,'destroy'])->name('news.destroy');
 
 

@@ -93,7 +93,7 @@ News
 
                                         <div class="form-group row">
                                             <label for="inputName" class="col-xl-3 col-md-4"><span>*</span>
-                                                {{ trans('main_trans.Category Name') }}</label>
+                                                Category Name</label>
                                             <div class="col-xl-8 col-md-7">
 
                                             <select name="category_id" class="form-control SlectBox" required onclick="console.log($(this).val())"
@@ -113,7 +113,7 @@ News
 
                                 </div>
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary">{{ trans('main_trans.Save') }}</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </form>
                         </div>

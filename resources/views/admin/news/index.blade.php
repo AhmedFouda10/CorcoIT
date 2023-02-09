@@ -69,9 +69,21 @@ News
                                             <a href="{{ route('news.edit', $new->id) }}">
                                                 <i class="fa fa-edit" title="Edit"></i>
                                             </a>
-                                            <a href="{{ route('news.destroy', $new->id) }}">
+                                            {{-- <a href="{{ route('news.destroy', $new->id) }}">
+                                                <i class="fa fa-trash" title="Delete"></i>
+                                            </a> --}}
+
+                                            <a href="{{ route('news.destroy', $new->id) }}"
+                                                onclick="event.preventDefault();
+                                document.getElementById('delete-form').submit();">
                                                 <i class="fa fa-trash" title="Delete"></i>
                                             </a>
+    
+                                            <form id="delete-form" action="{{ route('news.destroy', $new->id) }}"
+                                                method="POST" class="d-none">
+                                                {{ method_field('delete') }}
+                                                @csrf
+                                            </form>
 
                                     </td>
                                 </tr>

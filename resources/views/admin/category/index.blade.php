@@ -36,6 +36,12 @@ Category
                     </div>
                 @endif
 
+                @if ($message = Session::get('errors'))
+                    <div class="alert alert-danger">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+
 
                 <div class="table-responsive table-desi">
                     <table class="table list-digital all-package table-category " id="editableTable">
@@ -61,9 +67,20 @@ Category
                                         <a href="{{route('category.edit',$category->id)}}">
                                             <i class="fa fa-edit" title="Edit"></i>
                                         </a>
-                                        <a href="">
+                                        
+
+                                        <a href="{{route('category.destroy',$category->id)}}"
+                                            onclick="event.preventDefault();
+                            document.getElementById('delete-form').submit();">
                                             <i class="fa fa-trash" title="Delete"></i>
                                         </a>
+
+                                        <form id="delete-form" action="{{route('category.destroy',$category->id)}}"
+                                            method="POST" class="d-none">
+                                            {{ method_field('delete') }}
+                                            @csrf
+                                        </form>
+
                                         
 
                                     </td>

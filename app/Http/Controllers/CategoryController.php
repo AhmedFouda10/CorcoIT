@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Repository\Modules\Category\CategoryInterface;
 
 class CategoryController extends Controller
 {
+    private $categoryInterface;
+
+    public function __construct(CategoryInterface $categoryInterface)
+    {
+        $this->categoryInterface=$categoryInterface;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::orderBy('id','DESC')->paginate(5);
-        // $categories=Category::where('parent_id', '=', 0)->orderBy('id','DESC')->paginate(5);
-        // $categories = Category::where('parent_id', '=', 0)->get();
+        $categories=$this->categoryInterface->index();
         return view('admin.category.index',compact('categories'));
     }
 
@@ -27,8 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // $categories = Category::where('parent_id', '=', 0)->get();
-        $allCategories = Category::pluck('name','id')->all();
+        $allCategories = $this->categoryInterface->create();
         return view('admin.category.create',compact('allCategories'));
     }
 
@@ -38,16 +44,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddCategory $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:categories,name',
-        ]);
-    $input = $request->all();
-    $input['parent_id'] = empty($input['parent_id']) ? 0 : $input['parent_id'];
-    
-    Category::create($input);
-    return redirect()->route('category.index')->with('success', 'New Category added successfully.');
+        $validated = $request->validated();
+       
+        $this->categoryInterface->store($request);
+
+        return redirect()->route('category.index')->with('success', 'New Category added successfully.');
     }
 
     /**
@@ -58,8 +61,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::where('parent_id', '=', $id)->get();
-        // dd($categories);
+        $categories=$this->categoryInterface->show($id);
         return view('admin.category.show',compact('categories'));
         
     }
@@ -72,8 +74,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category=Category::find($id);
-        return view('admin.category.edit',compact('category'));
+        $category=$this->categoryInterface->edit($id);
+        if(!$category){
+            return redirect()->route('category.index')->with('errors', 'Category Is Not Found');
+        }else{
+            return view('admin.category.edit',compact('category'));
+        }
     }
 
     /**
@@ -86,12 +92,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:categories,name,'.$id,
+            'name' => 'required|min:3|unique:categories,name,'.$id,
         ]);
-        $category=Category::find($id);
-        $category->name=$request->name;
-        $category->update();
-        return redirect()->route('category.index')->with('success', 'New Category added successfully.');   
+        $this->categoryInterface->update($id,$request);
+        
+        return redirect()->route('category.index')->with('success', 'Category updated successfully.');   
     }
 
     /**
@@ -102,6 +107,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->categoryInterface->destroy($id);
+        return redirect()->route('category.index')->with('success', 'Category Deleted Successfully');
     }
 }
