@@ -55,8 +55,9 @@ class DBnews implements NewsInterface
         $check = News::where('title', $request->title)->where('category_id', $request->category_id)->first();
         if ($check && !$check->id == $id) {
             return redirect()->route('news.edit')->with('error', 'this New allready exists.');
-        } else {
-            $new = new News();
+        }
+        else {
+            $new = News::find($id);
             $new->title = $request->title;
             $new->body = $request->body;
             $new->category_id = $request->category_id;
@@ -64,13 +65,13 @@ class DBnews implements NewsInterface
                 $path = public_path('backend/assets/images/news/' . $new->image);
                 if (File::exists($path)) {
                     File::delete($path);
-                }else{
+                }
                     $file = $request->image;
                     $extension = $file->getClientOriginalExtension();
                     $filename = time() . '.' . $extension;
                     $file->move('backend/assets/images/news/', $filename);
                     $new->image = $filename;
-                }
+                
             }
             return $new->update();
         }
