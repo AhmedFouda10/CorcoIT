@@ -15,7 +15,7 @@ class DBnews implements NewsInterface
 
     public function create()
     {
-        return Category::select('id', 'name')->get();
+        return Category::select('id', 'name')->where('parent_id','0')->get();
     }
 
     public function store($request)
