@@ -97,20 +97,18 @@
                                                         <!--placeholder-->
                                                         <option value="" selected disabled>-- Select Category --
                                                         </option>
-                                                        
-
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->id }}">{{ $category->name }}
-                                                            </option>
-                                                            @foreach ($category->childs as $sub)
-                                                                <option value="{{ $sub->id }}">-{{ $sub->name }}
+                                                        @if ($categories)
+                                                            @foreach ($categories as $category)
+                                                                <?php $dash = ''; ?>
+                                                                <option value="{{ $category->id }}">{{ $category->name }}
                                                                 </option>
-                                                                @foreach ($sub->childs as $subsub)
-                                                                    <option value="{{ $subsub->id }}">
-                                                                        --{{ $subsub->name }}</option>
-                                                                @endforeach
+                                                                @if (count($category->childs))
+                                                                    @include('selectChild', [
+                                                                        'childs' => $category->childs,
+                                                                    ])
+                                                                @endif
                                                             @endforeach
-                                                        @endforeach
+                                                        @endif
                                                     </select>
 
 
